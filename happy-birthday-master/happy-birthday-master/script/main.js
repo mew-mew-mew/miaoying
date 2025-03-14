@@ -24,6 +24,45 @@ const fetchData = () => {
     });
 };
 
+
+document.addEventListener("DOMContentLoaded", function () {
+    const welcomeScreen = document.getElementById("welcome-screen");
+    const mainContent = document.getElementById("main-content");
+    const music = document.getElementById("birthday-music");
+    const musicButton = document.getElementById("music-toggle");
+
+    let isPlaying = false;
+
+    // 用户点击欢迎页面后进入主页面
+    welcomeScreen.addEventListener("click", function () {
+        welcomeScreen.style.display = "none"; // 隐藏欢迎页面
+        mainContent.style.display = "block"; // 显示主页面
+
+        // 尝试播放音乐
+        music.play().then(() => {
+            isPlaying = true;
+            musicButton.textContent = "🔇 Pause Music";
+        }).catch(err => console.warn("自动播放失败", err));
+    });
+
+    // 音乐控制按钮
+    musicButton.addEventListener("click", function () {
+        if (isPlaying) {
+            music.pause();
+            musicButton.textContent = "🔊 Play Music";
+        } else {
+            music.play();
+            musicButton.textContent = "🔇 Pause Music";
+        }
+        isPlaying = !isPlaying;
+    });
+});
+
+
+
+
+
+
 // Animation Timeline
 const animationTimeline = () => {
   // Spit chars that needs to be animated individually
